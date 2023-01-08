@@ -12,4 +12,8 @@ export class AuthService {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
+  loginUsuario(email: string, password: string) {
+    return this.auth.signInWithEmailAndPassword(email, password);
+  }
+
 }
