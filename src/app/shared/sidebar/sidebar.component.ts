@@ -13,8 +13,10 @@ export class SidebarComponent {
               private router: Router) { }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.authService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      });
   }
 
 }
