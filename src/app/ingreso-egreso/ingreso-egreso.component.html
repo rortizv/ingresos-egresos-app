@@ -7,42 +7,69 @@
                     Especifique el monto y el tipo
                 </p>
 
-                <form>
+                <form [formGroup]="ingresoEgresoForm" (ngSubmit)="guardar()">
 
                     <div class="form-group">
                         <label>Descripción</label>
-                        <input type="text" class="form-control" placeholder="Descripción" name="descripcion">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Digite una descripción..."
+                            formControlName="descripcion">
                     </div>
 
                     <div class="form-group">
                         <label>Monto</label>
-                        <input type="number" class="form-control" placeholder="Monto" name="monto">
-                        <p>
-                            Debe de ser un monto positivo
+                        <input
+                            type="number"
+                            class="form-control"
+                            placeholder="Digite un monto..."
+                            formControlName="monto">
+                        <p class="mt-3 mb-3">
+                            Debe de ser mayor a cero (0)
                         </p>
                     </div>
 
                     <div class="form-group">
                         <label>Tipo</label>
                         <br>
-                        <button type="button" class="btn btn-primary btn-block">Ingreso</button>
-                        <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+                        <div>
+                            <button
+                                *ngIf="tipo === 'ingreso'"
+                                (click)="tipo = 'egreso'"
+                                type="button"
+                                class="btn btn-primary btn-block">
+                                Ingreso
+                            </button>
+                            <button
+                                *ngIf="tipo === 'egreso'"
+                                (click)="tipo = 'ingreso'"
+                                type="button"
+                                class="btn btn-warning btn-block">
+                                Egreso
+                            </button>
+                        </div>
                     </div>
 
                     <hr>
-                    <button type="button" class="btn btn-success mr-2">
+                    <button
+                        type="submit"
+                        [disabled]="ingresoEgresoForm.invalid"
+                        class="btn btn-success mr-2">
                         <i class="fa fa-save"></i>
                         Agregar
                     </button>
 
-                    <!-- 
-                <button disabled class="btn btn-success mr-2">
-                  <i class="fa fa-spin fa-sync"></i>
-                  Espere por favor...
-                </button> 
-              -->
+                    
+                    <!-- <button disabled class="btn btn-success mr-2">
+                        <i class="fa fa-spin fa-sync"></i>
+                        Espere por favor...
+                    </button> -->
 
-                    <button type="reset" class="btn btn-light">Cancelar</button>
+                    <button type="reset" class="btn btn-danger">
+                        <i class="fa fa-ban"></i>
+                        Cancelar
+                    </button>
 
                 </form>
             </div>
