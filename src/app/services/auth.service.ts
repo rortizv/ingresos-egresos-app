@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
 import { Store } from '@ngrx/store';
 import * as authActions from '../auth/auth.actions';
+import * as ingresoEgresoActions from '../ingreso-egreso/ingreso-egreso.actions';
 import { Usuario } from '../models/usuario.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import 'firebase/firestore';
@@ -21,23 +22,26 @@ export class AuthService {
     return this._user;
   }
 
-  constructor(public auth: AngularFireAuth,
+  constructor(
+    public auth: AngularFireAuth,
     public firestore: AngularFirestore,
     private store: Store<AppState>) { }
 
   initAuthListener() {
-    this.userSubscription = this.auth.authState.subscribe(firebaseUser => {
+    this.auth.authState.subscribe(firebaseUser => {
       if (firebaseUser) {
-        this.firestore.doc(`${firebaseUser.uid}/usuario`).valueChanges()
+        this.userSubscription = this.firestore.doc(`${firebaseUser.uid}/usuario`)
+          .valueChanges()
           .subscribe((firestoreUser: any) => {
             const user = Usuario.fromFirebase(firestoreUser);
             this._user = user;
             this.store.dispatch(authActions.setUser({ user }));
           })
-      } else {
-        this._user = null;
-        this.userSubscription.unsubscribe();
-        this.store.dispatch(authActions.unSetUser());
+        } else {
+          this._user = null;
+          this.userSubscription.unsubscribe();
+          this.store.dispatch(authActions.unSetUser());
+          this.store.dispatch(ingresoEgresoActions.unSetItems());
       }
     });
   }

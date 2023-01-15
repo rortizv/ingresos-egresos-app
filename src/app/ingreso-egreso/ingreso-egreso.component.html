@@ -54,17 +54,21 @@
                     <hr>
                     <button
                         type="submit"
+                        *ngIf="!cargando"
                         [disabled]="ingresoEgresoForm.invalid"
                         class="btn btn-success mr-2">
                         <i class="fa fa-save"></i>
                         Agregar
                     </button>
 
-                    
-                    <!-- <button disabled class="btn btn-success mr-2">
+                    <button
+                        type="submit"
+                        *ngIf="cargando"
+                        class="btn btn-success mr-2"
+                        [disabled]="true">
                         <i class="fa fa-spin fa-sync"></i>
-                        Espere por favor...
-                    </button> -->
+                        Guardando...
+                    </button>
 
                     <button type="reset" class="btn btn-danger">
                         <i class="fa fa-ban"></i>
