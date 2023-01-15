@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './auth/auth.module';
 
 import { environment } from '../environments/environment';
 import { appReducers } from './app.reducer';
@@ -12,8 +13,6 @@ import { StoreModule } from '@ngrx/store';
 import { NgChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegistroComponent } from './auth/registro/registro.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
@@ -41,8 +40,6 @@ import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegistroComponent,
     DashboardComponent,
     IngresoEgresoComponent,
     EstadisticaComponent,
@@ -56,6 +53,7 @@ import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
     BrowserModule,
     NgChartsModule,
     AppRoutingModule,
+    AuthModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
